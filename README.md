@@ -1,6 +1,6 @@
 # mobile.de Scraper
 
-Extract structured data from [mobile.de](https://mobile.de) — structured car listings from mobile.de — Germany's largest car marketplace.
+Extract structured car listing data from [mobile.de](https://www.mobile.de) — Germany's largest used car marketplace with 1.4 million+ vehicles from dealers and private sellers.
 
 **[Run on Apify →](https://apify.com/blackfalcondata/mobile-de-scraper)**
 
@@ -8,32 +8,37 @@ Extract structured data from [mobile.de](https://mobile.de) — structured car l
 
 ## Key features
 
-🔍 **Smart search with filters**
+🔍 **Structured search filters**
 
-Search by keyword, location, and multiple filters. Smart input resolution ensures you always get results.
+Search by make, model, fuel type, price range, mileage, year, power, body type, seller type, ZIP code with radius, and sort order. No manual URL construction needed.
 
-⚡ **Compact output for AI agents**
+💰 **Price intelligence**
 
-Core-fields-only mode optimized for MCP and AI agent workflows. Description truncation to control output size.
+Every listing includes mobile.de's own price assessment (Guter Preis, Fairer Preis, Sehr guter Preis) plus seller star ratings and review counts.
 
-📊 **Structured data**
+🖼️ **Multiple images**
 
-Clean JSON output with consistent field naming. All fields always present — null when unavailable, never omitted.
+1–5 thumbnail image URLs per listing from the search results.
+
+⚡ **AI-agent ready**
+
+Compact output mode returns 13 core fields for MCP tools, LLM pipelines, and agent workflows.
 
 ---
 
 ## Use cases
 
-<!-- WRITE: 4-6 use case paragraphs. Bold the title. 2-3 sentences each. -->
+**Price monitoring and market intelligence**
+Track asking prices across makes, models, regions, and fuel types. The built-in price rating tells you where each listing sits relative to the market without building your own pricing model.
 
-**Data pipeline automation**
-Integrate with your ETL pipeline to collect structured data on a schedule. Export to CSV, JSON, or directly to your database.
+**Dealer inventory aggregation**
+Build a unified view of dealer stock across Germany. Filter by ZIP code and radius, sort by price or registration date, and feed structured records into dashboards on a recurring schedule.
 
-**Market research**
-Monitor listings, track trends, and analyze market dynamics with structured, deduplicated data.
+**Lead generation for automotive services**
+Identify active dealers by region with high listing volume and strong ratings. Use seller name, rating, review count, and location to build qualified prospect lists.
 
-**AI and LLM workflows**
-Use compact mode and description truncation to feed data into AI agents, MCP servers, and LLM pipelines without exceeding token budgets.
+**Recurring data pipelines**
+Schedule daily or weekly runs and export to CSV, JSON, or push to a warehouse. The 29-field schema is stable across runs — downstream consumers don't need per-run cleanup logic.
 
 ---
 
@@ -46,56 +51,67 @@ Use compact mode and description truncation to feed data into AI agents, MCP ser
 }
 ```
 
+```json
+{
+  "make": "BMW",
+  "fuelType": "DIESEL",
+  "priceMax": 25000,
+  "yearMin": 2020,
+  "maxResults": 100
+}
+```
+
 ---
 
 ## Input parameters
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `query` | string | — | Free-text search keywords (e.g. 'VW Golf GTI'). Use JSON array for multi-query. |
-| `make` | string | — | Car make / brand (e.g. 'Volkswagen', 'BMW', 'Mercedes-Benz'). |
-| `model` | string | — | Car model (e.g. 'Golf', '3er', 'C-Klasse'). Requires make. |
-| `startUrls` | array | — | Direct mobile.de search URLs. Use this for full filter control. |
-| `maxResults` | integer | `50` | Maximum total listings to return (0 = unlimited). |
-| `maxPages` | integer | `5` | Maximum search result pages to scrape per source. |
-| `condition` | enum | — | Filter by vehicle condition. |
-| `fuelType` | enum | — | Filter by fuel type. |
-| `transmission` | enum | — | Filter by transmission type. |
-| `bodyType` | enum | — | Filter by body type / vehicle category. |
-| `sellerType` | enum | — | Filter by seller type. |
-| `priceMin` | integer | — | Minimum price in EUR. |
-| `priceMax` | integer | — | Maximum price in EUR. |
-| `mileageMin` | integer | — | Minimum mileage in km. |
-| `mileageMax` | integer | — | Maximum mileage in km. |
-| `yearMin` | integer | — | Minimum first registration year. |
-| `yearMax` | integer | — | Maximum first registration year. |
-| `powerMin` | integer | — | Minimum engine power in PS. |
-| `powerMax` | integer | — | Maximum engine power in PS. |
-| `zipCode` | string | — | German postal code for location-based search. |
-| `radiusKm` | integer | — | Search radius around ZIP code. |
-| `sort` | enum | `"relevance"` | Sort Order. |
-| `compact` | boolean | `false` | Output only core fields (for AI-agent/MCP workflows). |
+| `query` | string | — | Free-text search (e.g. "VW Golf GTI"). |
+| `make` | string | — | Car make (e.g. "Volkswagen", "BMW"). |
+| `model` | string | — | Car model (e.g. "Golf", "3er"). Requires make. |
+| `startUrls` | array | — | Direct mobile.de search URLs for full filter control. |
+| `maxResults` | integer | `50` | Maximum listings to return (0 = unlimited). |
+| `maxPages` | integer | `5` | Maximum search pages. Each page returns ~26 listings. |
+| `condition` | enum | — | NEW, USED, EMPLOYEE_CAR, PRE_REGISTRATION, CLASSIC |
+| `fuelType` | enum | — | DIESEL, PETROL, ELECTRIC, HYBRID, PLUG_IN_HYBRID, CNG, LPG, HYDROGEN |
+| `transmission` | enum | — | MANUAL_GEAR, AUTOMATIC_GEAR, SEMI_AUTOMATIC_GEAR |
+| `bodyType` | enum | — | LIMOUSINE, KOMBI, KLEINWAGEN, COUPE, CABRIO, SUV, GELAENDEWAGEN, VAN, PICKUP |
+| `sellerType` | enum | — | DEALER, PRIVATE |
+| `priceMin` / `priceMax` | integer | — | Price range in EUR |
+| `mileageMin` / `mileageMax` | integer | — | Mileage range in km |
+| `yearMin` / `yearMax` | integer | — | First registration year range |
+| `powerMin` / `powerMax` | integer | — | Engine power range in PS |
+| `zipCode` | string | — | German postal code for location search |
+| `radiusKm` | integer | — | Radius around ZIP code (km) |
+| `sort` | enum | `"relevance"` | relevance, price_asc, price_desc, mileage_asc, registration_desc, registration_asc |
+| `compact` | boolean | `false` | Core fields only for AI/MCP workflows. |
 
 ---
 
 ## FAQ
 
-<!-- WRITE: 4-6 Q&A pairs relevant to this product -->
+**What data does it return?**
+29 fields per listing: price, specs (make, model, fuel, power, mileage, registration), seller info (name, type, rating, review count, location), price rating, 1–5 thumbnail images, and metadata.
+
+**Does it include full images and descriptions?**
+Each listing includes 1–5 thumbnail images from search results. Full-resolution galleries and descriptions from detail pages are not included in this version.
+
+**How fast does it run?**
+A typical run with 50 results completes in 10–15 seconds. Each search page takes 3–5 seconds and returns ~26 listings.
 
 **Is it legal to scrape mobile.de?**
-Web scraping of publicly available data is generally legal. This actor only accesses publicly visible information. Always check the target site's terms of service for your specific use case.
-
-**How does incremental mode work?**
-Each listing gets a content hash. On subsequent runs, only new or changed listings are emitted — saving time, compute, and storage.
+This actor accesses publicly available listing data. Review mobile.de's terms of service and your local regulations before using the data commercially.
 
 ---
 
 ## Known limitations
 
-<!-- WRITE: 4-6 honest limitations -->
-
-- <!-- WRITE: limitation 1 -->
-- <!-- WRITE: limitation 2 -->
+- Data comes from search result pages only. Full descriptions, equipment lists, and full-resolution images are not included in v1.
+- `transmission` and `bodyType` work as search filters but are not returned in the output — mobile.de does not display them on search result cards.
+- `condition` is only populated when mobile.de explicitly marks the listing (e.g. "Unfallfrei", "Vorführfahrzeug").
+- `sellerRating` requires enough review history — private sellers and small dealers may not have a rating.
+- Images are search result thumbnails, not the full-resolution gallery from the detail page.
 
 ---
 
@@ -103,14 +119,12 @@ Each listing gets a content hash. On subsequent runs, only new or changed listin
 
 | Product | Description |
 |:--------|:------------|
-| [StepStone Jobs API](https://github.com/BlackFalconData-org/stepstone-jobs-api) | Job listings from 18 European portals |
-| [Company Jobs Tracker](https://github.com/BlackFalconData-org/company-jobs-tracker-api) | Track new/removed jobs per company |
-| [Indeed Jobs Feed](https://github.com/BlackFalconData-org/indeed-jobs-feed) | Indeed job listings with salary data |
-| [Glassdoor Jobs Feed](https://github.com/BlackFalconData-org/glassdoor-jobs-feed) | Glassdoor listings with company ratings |
-| [Arbeitsagentur Jobs Feed](https://github.com/BlackFalconData-org/arbeitsagentur-jobs-feed) | Germany's federal job portal (1M+ listings) |
-| [Naukri Jobs Feed](https://github.com/BlackFalconData-org/naukri-jobs-feed) | India's largest job portal |
 | [Bilbasen Scraper](https://github.com/BlackFalconData-org/bilbasen-scraper) | Denmark's largest car marketplace |
+| [DBA Marketplace Scraper](https://github.com/BlackFalconData-org/dba-listings-scraper) | Denmark's largest classifieds platform |
+| [FINN.no Torget Scraper](https://github.com/BlackFalconData-org/finn-torget-scraper) | Norway's largest classifieds marketplace |
+| [Arbeitsagentur Jobs Feed](https://github.com/BlackFalconData-org/arbeitsagentur-jobs-feed) | Germany's federal job portal (1M+ listings) |
+| [StepStone Jobs API](https://github.com/BlackFalconData-org/stepstone-jobs-api) | Job listings from 18 European portals |
 
 ---
 
-*Last updated: 2026 03*
+*Last updated: 2026-03*
