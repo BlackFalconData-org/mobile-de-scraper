@@ -2,43 +2,31 @@
 
 Extract structured car listing data from [mobile.de](https://www.mobile.de) — Germany's largest used car marketplace with 1.4 million+ vehicles from dealers and private sellers.
 
-**[Run on Apify →](https://apify.com/blackfalcondata/mobile-de-scraper)**
+**[mobile.de Scraper on Apify →](https://apify.com/blackfalcondata/mobile-de-scraper)**
 
 ---
 
 ## Key features
 
-🔍 **Structured search filters**
 
-Search by make, model, fuel type, price range, mileage, year, power, body type, seller type, ZIP code with radius, and sort order. No manual URL construction needed.
 
-💰 **Price intelligence**
+**Search with filters** — Search by keyword and location. Filter by condition, fuel type, transmission, and more.
 
-Every listing includes mobile.de's own price assessment (Guter Preis, Fairer Preis, Sehr guter Preis) plus seller star ratings and review counts.
+**Incremental mode** — Only get new or changed listings since your last run. Content hash per listing — no duplicates, no re-processing.
 
-🖼️ **Multiple images**
-
-1–5 thumbnail image URLs per listing from the search results.
-
-⚡ **AI-agent ready**
-
-Compact output mode returns 13 core fields for MCP tools, LLM pipelines, and agent workflows.
+**Structured data** — 30 fields per listing. Clean JSON output with consistent field naming. All fields always present — null when unavailable, never omitted.
 
 ---
 
 ## Use cases
 
-**Price monitoring and market intelligence**
-Track asking prices across makes, models, regions, and fuel types. The built-in price rating tells you where each listing sits relative to the market without building your own pricing model.
 
-**Dealer inventory aggregation**
-Build a unified view of dealer stock across Germany. Filter by ZIP code and radius, sort by price or registration date, and feed structured records into dashboards on a recurring schedule.
 
-**Lead generation for automotive services**
-Identify active dealers by region with high listing volume and strong ratings. Use seller name, rating, review count, and location to build qualified prospect lists.
+**Data pipeline automation**
+Integrate with your ETL pipeline to collect structured listings from mobile.de on a schedule. Export to CSV, JSON, or directly to your database. Use compact mode to control output size.
 
-**Recurring data pipelines**
-Schedule daily or weekly runs and export to CSV, JSON, or push to a warehouse. The 29-field schema is stable across runs — downstream consumers don't need per-run cleanup logic.
+**Market research**
+Monitor listings, track trends, and analyze market dynamics with structured, deduplicated data from mobile.de.
 
 ---
 
@@ -117,13 +105,11 @@ This actor accesses publicly available listing data. Review mobile.de's terms of
 
 ## Related products by Black Falcon Data
 
-| Product | Description |
-|:--------|:------------|
-| [Bilbasen Scraper](https://github.com/BlackFalconData-org/bilbasen-scraper) | Denmark's largest car marketplace |
-| [DBA Marketplace Scraper](https://github.com/BlackFalconData-org/dba-listings-scraper) | Denmark's largest classifieds platform |
-| [FINN.no Torget Scraper](https://github.com/BlackFalconData-org/finn-torget-scraper) | Norway's largest classifieds marketplace |
-| [Arbeitsagentur Jobs Feed](https://github.com/BlackFalconData-org/arbeitsagentur-jobs-feed) | Germany's federal job portal (1M+ listings) |
-| [StepStone Jobs API](https://github.com/BlackFalconData-org/stepstone-jobs-api) | Job listings from 18 European portals |
+
+
+- [Bilbasen Scraper](https://github.com/BlackFalconData-org/bilbasen-scraper) — Denmark's largest car marketplace
+- [StepStone Scraper](https://github.com/BlackFalconData-org/stepstone-scraper) — Job listings from 18 European portals
+- [Indeed Job Scraper](https://github.com/BlackFalconData-org/indeed-job-scraper) — Indeed job listings with salary data
 
 ---
 
