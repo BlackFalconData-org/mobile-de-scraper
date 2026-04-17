@@ -2,7 +2,7 @@
 
 Extract structured car listing data from [mobile.de](https://www.mobile.de) — Germany's largest used car marketplace with 1.4 million+ vehicles from dealers and private sellers.
 
-**[mobile.de Scraper on Apify →](https://apify.com/blackfalcondata/mobile-de-scraper)**
+**[mobile.de Car Scraper - Germany’s Largest Car Marketplace on Apify →](https://apify.com/blackfalcondata/mobile-de-scraper)**
 
 ---
 
@@ -10,15 +10,17 @@ Extract structured car listing data from [mobile.de](https://www.mobile.de) — 
 
 
 
+
 **Search with filters** — Search by keyword and location. Filter by condition, fuel type, transmission, and more.
 
 **Incremental mode** — Only get new or changed listings since your last run. Content hash per listing — no duplicates, no re-processing.
 
-**Structured data** — 30 fields per listing. Clean JSON output with consistent field naming. All fields always present — null when unavailable, never omitted.
+**Structured data** — 48 fields per listing. Clean JSON output with consistent field naming. All fields always present — null when unavailable, never omitted.
 
 ---
 
 ## Use cases
+
 
 
 
@@ -104,6 +106,7 @@ This actor accesses publicly available listing data. Review mobile.de's terms of
 ---
 
 ## Related products by Black Falcon Data
+
 
 
 
