@@ -4,6 +4,21 @@ Extract structured car listing data from [mobile.de](https://www.mobile.de) — 
 
 **[mobile.de Car Scraper - Germany’s Largest Car Marketplace on Apify →](https://apify.com/blackfalcondata/mobile-de-scraper?fpr=1h3gvi)**
 
+
+## 🚀 How to use this actor
+
+> ### 💚 $5 free Apify credits — every month
+> No credit card required. No commitment. Cancel anytime.
+
+### 👉 [Sign up free on Apify →](https://console.apify.com/sign-up?fpr=1h3gvi)
+
+1. **Click sign up** — pick GitHub, Google, or email; takes ~30 seconds
+2. **Open this actor** — input is pre-filled with a working example
+3. **Click Start** — export results as JSON, CSV, or Excel
+
+Your **$5 monthly platform credit** is enough to run this actor right away — and again every month — scraping typically several hundred to several thousand results per run, depending on your input.
+
+
 ---
 
 ## Key features
@@ -13,15 +28,22 @@ Extract structured car listing data from [mobile.de](https://www.mobile.de) — 
 
 
 
-**Search with filters** — Search by keyword and location. Filter by condition, fuel type, transmission, and more.
+
+**Search with filters** — Search by keyword and location. Filter by 🚗 vehicle category, 👤 seller type, 🚧 damage status, and more.
+
+**Detail enrichment** — Fetch full job descriptions, structured metadata for each listing.
 
 **Incremental mode** — Only get new or changed listings since your last run. Content hash per listing — no duplicates, no re-processing.
 
-**Change classification** — Track cross-run repost detection across runs. Build audit trails of how listings evolve over time.
+**Change classification** — Track unchanged, expired, cross-run repost detection across runs. Build audit trails of how listings evolve over time.
 
 **Compact output** — Emit core fields only (AI-agent / MCP-friendly). Keeps response size small for LLM workflows.
 
-**Result cap** — Stop after N listings (up to 1.000). Set to 0 for the full catalog.
+**Description truncation** — Cap description length per listing to control output size and cost.
+
+**Result cap** — Stop after N listings (up to 10.000). Set to 0 for the full catalog.
+
+**Proxy support** — Route traffic through Apify Proxy or your own proxy group to avoid regional blocks and rate limits.
 
 **Export anywhere** — Download as JSON, CSV, or Excel. Stream via Apify API, webhooks, or integrations with Make, Zapier, Airbyte, Keboola.
 
@@ -30,6 +52,7 @@ Extract structured car listing data from [mobile.de](https://www.mobile.de) — 
 ---
 
 ## Use cases
+
 
 
 
@@ -204,12 +227,13 @@ See the [actor on Apify](https://apify.com/blackfalcondata/mobile-de-scraper?fpr
 
 
 
+
 - [Bilbasen Scraper](https://apify.com/blackfalcondata/bilbasen-scraper?fpr=1h3gvi) — Denmark's largest car marketplace
 - [StepStone Scraper](https://apify.com/blackfalcondata/stepstone-scraper?fpr=1h3gvi) — Job listings from 18 European portals
 - [Indeed Job Scraper](https://apify.com/blackfalcondata/indeed-job-scraper?fpr=1h3gvi) — Indeed job listings with salary data
+- [LinkedIn Jobs Scraper](https://apify.com/blackfalcondata/linkedin-jobs-scraper?fpr=1h3gvi) — World's largest professional network — global job listings, no login required
 - [Glassdoor Job Scraper](https://apify.com/blackfalcondata/glassdoor-job-scraper?fpr=1h3gvi) — Glassdoor listings with company ratings
 - [Arbeitsagentur Scraper](https://apify.com/blackfalcondata/arbeitsagentur-scraper?fpr=1h3gvi) — Germany's official job portal (1M+ listings)
-- [SEEK Scraper](https://apify.com/blackfalcondata/seek-scraper?fpr=1h3gvi) — Australia & NZ's largest job board
 
 ---
 
